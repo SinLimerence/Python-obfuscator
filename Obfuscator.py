@@ -105,6 +105,16 @@ class CodeObfuscator(ast.NodeTransformer):
                 self.import_aliases[f"{node.module}.{alias.name}"] = alias.asname
         return node
     
+class CodeObfuscator(ast.NodeTransformer):
+    def __init__(self):
+        self.var_map = {}
+        self.func_map = {}
+        self.class_map = {}
+        self.string_cache = {}
+        self.current_class = None
+        self.import_aliases = {}
+    
+    
     def _generate_random_name(self, length=12):
         chars = string.ascii_letters + string.digits
         while True:
@@ -115,8 +125,9 @@ class CodeObfuscator(ast.NodeTransformer):
                 return name
     
     def _encode_string(self, s):
+        """Modified to avoid dynamic imports"""
         encoded = base64.b64encode(zlib.compress(s.encode('utf-8'))).decode('utf-8')
-        return f"__import__('zlib').decompress(__import__('base64').b64decode('{encoded}')).decode('utf-8')"
+        return f"zlib.decompress(base64.b64decode('{encoded}')).decode('utf-8')"
     
     def _generate_junk_code(self, count=1):
         junk_nodes = []
@@ -125,12 +136,14 @@ class CodeObfuscator(ast.NodeTransformer):
             if junk_type == 0:
                 var_name = self._generate_random_name()
                 self.var_map[var_name] = var_name
-                junk_nodes.append(ast.Assign(
+                assign_node = ast.Assign(
                     targets=[ast.Name(id=var_name, ctx=ast.Store())],
                     value=ast.Constant(value=random.randint(0, 1000))
-                ))
+                )
+                ast.fix_missing_locations(assign_node)
+                junk_nodes.append(assign_node)
             elif junk_type == 1:
-                junk_nodes.append(ast.If(
+                if_node = ast.If(
                     test=ast.Compare(
                         left=ast.Constant(value=random.randint(0, 100)),
                         ops=[ast.Eq()],
@@ -138,23 +151,29 @@ class CodeObfuscator(ast.NodeTransformer):
                     ),
                     body=[ast.Pass()],
                     orelse=[]
-                ))
+                )
+                ast.fix_missing_locations(if_node)
+                junk_nodes.append(if_node)
             elif junk_type == 2:
-                junk_nodes.append(ast.Expr(
+                expr_node = ast.Expr(
                     value=ast.Call(
                         func=ast.Name(id='print', ctx=ast.Load()),
                         args=[ast.Constant(value=''.join(random.choice(string.printable) for _ in range(10)))],
                         keywords=[]
                     )
-                ))
+                )
+                ast.fix_missing_locations(expr_node)
+                junk_nodes.append(expr_node)
             else:
-                junk_nodes.append(ast.Expr(
+                expr_node = ast.Expr(
                     value=ast.BinOp(
                         left=ast.Constant(value=''.join(random.choice(string.ascii_letters) for _ in range(5))),
                         op=ast.Add(),
                         right=ast.Constant(value=''.join(random.choice(string.ascii_letters) for _ in range(5)))
                     )
-                ))
+                )
+                ast.fix_missing_locations(expr_node)
+                junk_nodes.append(expr_node)
         return junk_nodes
 
 def obfuscate_code(source_code):
@@ -180,14 +199,17 @@ def obfuscate_code(source_code):
     return obfuscated_code
 
 def _obfuscate_with_marshal(code):
+    """Modified wrapper to ensure proper imports"""
     try:
         code_obj = compile(code, '<string>', 'exec')
         marshaled = marshal.dumps(code_obj)
         encoded = base64.b64encode(zlib.compress(marshaled)).decode('utf-8')
         
-        wrapper = f"""import marshal, zlib, base64
-exec(marshal.loads(zlib.decompress(base64.b64decode("{encoded}"))))
-"""
+        wrapper = """import base64, zlib, marshal
+def _d(s):
+    return marshal.loads(zlib.decompress(base64.b64decode(s)))
+exec(_d('{encoded}'))
+""".format(encoded=encoded)
         return wrapper
     except Exception as e:
         print(f"Warning: Marshal obfuscation failed: {e}")
