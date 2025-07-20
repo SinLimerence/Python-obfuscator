@@ -16,8 +16,17 @@ print("Hello World!")
 ```
 ### Obfuscated output
 ```
-import marshal, zlib, base64
-exec(marshal.loads(zlib.decompress(base64.b64decode("eJx7zIAEWKH0ZycgMZUhmCGY0ZuhCEIzFjHKMcgxBDMFM1tFMDAkMjIAeTFMSgwxzEoMwSymjBCtMFqBIZ1Rk/UliOn3UhRIvrQAElW58fGZuQX5RSXx8RrqVTmZSeqaeimpyfm5BUWpxcUayLJJicWpZiZA+SQzE5CSlFQN9VSvqqpgX2OvyrBkz6pKfe/gMFdXR6cKLycXE1t1TYhRIHWlJWm6FkABlltsEGNusYAsu8VaUJSZV3KLJbUsMWclw2eQ625x2BSXAEXT7YCs3PyU0pxUuyIeoATII8WaQOIDMyMj420G3tsM3DcYBEGImbVDqNniBgvHTQbWxpQL3FWX2aqvMtQUcQFVAwBKWFWj")))) 
+import base64, zlib, marshal
+#N\X\w=f(msRF?5&LNWz8
+i4:~+=GY?JzwOfnl2VE/
+def _d(s):
+    return marshal.loads(zlib.decompress(base64.b64decode(s)))
+#G
+'d>54l04*NYWv_
+exec(_d('eJx7zIAEmKH0ZxUgMZ0hhSGFMYchCkIzRjEyMaQypTCtZoQoYmSoZNRkfgli+lXxeKTm5OQrhOcX5aQoajLfYktKLE41M7nFUpWTmXSLtaAoM69kJcNnkOJfHDbFJUB+uh2QlZufUpqTalfECTaQgaFYGEh8YGZkZLzNwHubgfsmA2tD3lUG0SJ2oDgAhignIw=='))
+#G#+Dxg^6!#yxP 1cN{D+I,&K\	D?p|
+
+#LoV;Z46,Sg*<2(OhY{=-^L!k#Qa{]a
 ```
 ## Installation
 1. Install the file
