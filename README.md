@@ -11,12 +11,14 @@ A simple Python code obfuscator tool that transforms your readable Python code i
 ## Obfuscation Examples
 
 ### Non-Obfuscated Code
+```
 print("Hello World!")
-
+```
 ### Obfuscated output
+```
 import marshal, zlib, base64
-exec(marshal.loads(zlib.decompress(base64.b64decode("eJx7zIAEWKH0ZycgMZUhmCGY0ZuhCEIzFjHKMcgxBDMFM1tFMDAkMjIAeTFMSgwxzEoMwSymjBCtMFqBIZ1Rk/UliOn3UhRIvrQAElW58fGZuQX5RSXx8RrqVTmZSeqaeimpyfm5BUWpxcUayLJJicWpZiZA+SQzE5CSlFQN9VSvqqpgX2OvyrBkz6pKfe/gMFdXR6cKLycXE1t1TYhRIHWlJWm6FkABlltsEGNusYAsu8VaUJSZV3KLJbUsMWclw2eQ625x2BSXAEXT7YCs3PyU0pxUuyIeoATII8WaQOIDMyMj420G3tsM3DcYBEGImbVDqNniBgvHTQbWxpQL3FWX2aqvMtQUcQFVAwBKWFWj"))))
-
+exec(marshal.loads(zlib.decompress(base64.b64decode("eJx7zIAEWKH0ZycgMZUhmCGY0ZuhCEIzFjHKMcgxBDMFM1tFMDAkMjIAeTFMSgwxzEoMwSymjBCtMFqBIZ1Rk/UliOn3UhRIvrQAElW58fGZuQX5RSXx8RrqVTmZSeqaeimpyfm5BUWpxcUayLJJicWpZiZA+SQzE5CSlFQN9VSvqqpgX2OvyrBkz6pKfe/gMFdXR6cKLycXE1t1TYhRIHWlJWm6FkABlltsEGNusYAsu8VaUJSZV3KLJbUsMWclw2eQ625x2BSXAEXT7YCs3PyU0pxUuyIeoATII8WaQOIDMyMj420G3tsM3DcYBEGImbVDqNniBgvHTQbWxpQL3FWX2aqvMtQUcQFVAwBKWFWj")))) 
+```
 ## Installation
 1. Install the file
 2. run setup.py
