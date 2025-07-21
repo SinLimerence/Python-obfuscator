@@ -5,7 +5,7 @@
 ![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-red)
 
-A simple Python code obfuscator tool that transforms your readable Python code into a protected version while maintaining original functionality.
+A simple Python code obfuscator tool that transforms your readable Python code into a protected version while maintaining original functionality. 
 
 
 ## Obfuscation Examples
