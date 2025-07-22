@@ -14,7 +14,7 @@ A simple Python code obfuscator tool that transforms your readable Python code i
 ```
 print("Hello World!")
 ```
-### Obfuscated output
+### Obfuscated output 
 ```
 import base64, zlib, marshal
 #N\X\w=f(msRF?5&LNWz8
