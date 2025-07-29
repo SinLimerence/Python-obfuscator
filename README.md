@@ -11,7 +11,7 @@ A simple Python code obfuscator tool that transforms your readable Python code i
 ## Obfuscation Examples
 
 ### Non-Obfuscated Code
-``` 
+```  
 print("Hello World!")
 ``` 
 ### Obfuscated output 
